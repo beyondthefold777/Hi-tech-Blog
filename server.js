@@ -26,6 +26,13 @@ app.use(session({
   cookie: { secure: false } 
 }));
 
+function ensureAuthenticated(req, res, next) {
+  if (req.session.user) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
