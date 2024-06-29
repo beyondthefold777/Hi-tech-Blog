@@ -26,7 +26,6 @@ app.use(session({
   cookie: { secure: false } 
 }));
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -40,10 +39,11 @@ app.use('/', dashboardRoutes); // Use dashboard routes for the root path
 // Connect to the database and start the server
 pool.connect()
   .then(() => {
+    console.log('Successfully connected to the database'); // Log successful database connection
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`); // Log the server URL after starting
     });
   })
   .catch(err => {
-    console.error('Error connecting to the database', err); // Log any errors connecting to the database
+    console.error('Failed to connect to the database:', err); // Log any errors connecting to the database
   });
