@@ -10,9 +10,15 @@ router.get('/', homeController.getHomePage);
 // Route for user signup
 router.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
-  const user = await User.create({ username, email, password });
-  res.json(user);
+  try {
+    const user = await User.create({ username, email, password });
+    req.session.user = { id: user.id, username: user.username };
+    res.redirect('/dashboard');
+  } catch (error) {
+    res.status(500).send('Error signing up');
+  }
 });
+
 
 // Route for creating a new blog
 router.post('/blogs', async (req, res) => {

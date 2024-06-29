@@ -3,9 +3,10 @@ const exphbs = require('express-handlebars'); // Import Handlebars for templatin
 const path = require('path'); 
 const helpers = require('./utils/helpers'); // Import custom helpers for Handlebars
 const homeRoutes = require('./routes/homeRoutes'); 
+const loginRoutes = require('./routes/loginRoutes'); // Import login routes
+const dashboardRoutes = require('./routes/dashboardRoutes'); 
 const pool = require('./config/connection'); // Import the database connection pool
 const session = require('express-session'); // Import session middleware
-const dashboardRoutes = require('./routes/dashboardRoutes'); 
 require('dotenv').config();
 
 const app = express(); 
@@ -41,7 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
 app.use('/', homeRoutes); // Use home routes for the root path
-app.use('/', dashboardRoutes); // Use dashboard routes for the root path
+app.use('/', loginRoutes); // Use login routes for the root path
+app.use('/', ensureAuthenticated, dashboardRoutes); // Use dashboard routes for the root path, ensuring authentication
 
 // Connect to the database and start the server
 pool.connect()
