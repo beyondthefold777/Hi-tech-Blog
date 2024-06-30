@@ -1,52 +1,52 @@
-const express = require('express'); 
-const exphbs = require('express-handlebars'); // Import Handlebars for templating
-const path = require('path'); 
-const helpers = require('./utils/helpers'); // Import custom helpers for Handlebars
-const homeRoutes = require('./routes/homeRoutes'); 
-const loginRoutes = require('./routes/loginRoutes'); // Import login routes
-const dashboardRoutes = require('./routes/dashboardRoutes'); 
-const pool = require('./config/connection'); // Import the database connection pool
-const session = require('express-session'); // Import session middleware
-const { ensureAuthenticated } = require('./middleware/auth'); // Import ensureAuthenticated middleware
+const express = require('express');
+const exphbs = require('express-handlebars');
+const path = require('path');
+const helpers = require('./utils/helpers');
+const homeRoutes = require('./routes/homeRoutes');
+const loginRoutes = require('./routes/loginRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+const pool = require('./config/connection');
+const session = require('express-session');
+const { ensureAuthenticated } = require('./middleware/auth');
 require('dotenv').config();
 
-const app = express(); 
-const PORT = process.env.PORT || 3001; 
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-const hbs = exphbs.create({ helpers }); 
+const hbs = exphbs.create({ helpers });
 
-// Set up Handlebars as the view engine
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
-// Configure session middleware
 app.use(session({
-  secret: process.env.SECRET_KEY, // Secret key for session encryption
-  resave: false, // Do not save session if unmodified
-  saveUninitialized: true, // Save new sessions
-  cookie: { secure: false } 
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Routes
-app.use('/', homeRoutes); // Use home routes for the root path
-app.use('/', loginRoutes); // Use login routes for the root path
-app.use('/', ensureAuthenticated, dashboardRoutes); // Use dashboard routes for the root path, ensuring authentication
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.session.user ? true : false;
+  next();
+});
 
-// Connect to the database and start the server
+app.use('/', homeRoutes);
+app.use('/', loginRoutes);
+app.use('/', ensureAuthenticated, dashboardRoutes);
+
 pool.connect()
   .then(() => {
-    console.log('Successfully connected to the database'); // Log successful database connection
+    console.log('Successfully connected to the database');
     app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`); // Log the server URL after starting
+      console.log(`Server running on http://localhost:${PORT}`);
     });
   })
   .catch(err => {
-    console.error('Failed to connect to the database:', err); // Log any errors connecting to the database
+    console.error('Failed to connect to the database:', err);
   });

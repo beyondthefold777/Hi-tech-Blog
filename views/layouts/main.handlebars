@@ -16,12 +16,11 @@
       <a href="/" class="hover:text-gray-300">Homepage</a>
       <a href="/dashboard" class="hover:text-gray-300">Dashboard</a>
       <a href="/signup" class="hover:text-gray-300">Sign up</a>
-      <a href="/login" id="loginBtn" class="hover:text-gray-300 {{#unless loggedIn}}hidden{{/unless}}">Log in</a>
-      <a href="/logout" id="logoutBtn" class="hover:text-gray-300 {{#if loggedIn}}hidden{{/if}}">Logout</a>
+      <a href="/login" id="loginBtn" class="hover:text-gray-300 {{#if loggedIn}}hidden{{else}}block{{/if}}">Log in</a>
+      <a href="/logout" id="logoutBtn" class="hover:text-gray-300 {{#if loggedIn}}block{{else}}hidden{{/if}}">Logout</a>
     </div>
   </div>
 </nav>
-
 
   <main class="container mx-auto mt-8 px-4">
     {{#each blogs as |blog|}}
@@ -32,6 +31,5 @@
       </article>
     {{/each}}
   </main>
-
-  <script>
-    // This script will be replaced with actual logic
+</body>
+</html>

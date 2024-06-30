@@ -16,7 +16,10 @@ const getHomePage = (req, res) => {
         }
     ];
 
-    res.render('layouts/main', { blogs }); // Ensure this path matches your directory structure
+    // Check if the user is logged in
+    const loggedIn = req.session.user ? true : false;
+
+    res.render('layouts/main', { blogs, loggedIn }); // Pass the loggedIn status to the template
 };
 
 module.exports = {
