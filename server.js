@@ -7,6 +7,7 @@ const loginRoutes = require('./routes/loginRoutes'); // Import login routes
 const dashboardRoutes = require('./routes/dashboardRoutes'); 
 const pool = require('./config/connection'); // Import the database connection pool
 const session = require('express-session'); // Import session middleware
+const { ensureAuthenticated } = require('./middleware/auth'); // Import ensureAuthenticated middleware
 require('dotenv').config();
 
 const app = express(); 
@@ -26,13 +27,6 @@ app.use(session({
   saveUninitialized: true, // Save new sessions
   cookie: { secure: false } 
 }));
-
-function ensureAuthenticated(req, res, next) {
-  if (req.session.user) {
-    return next();
-  }
-  res.redirect('/login');
-}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
