@@ -6,8 +6,12 @@ const authController = require('../controllers/authController');
 router.get('/', homeController.getHomePage);
 
 router.get('/signup', (req, res) => {
-  res.render('signup', { loggedIn: req.session.user ? true : false });
+  res.render('signup', { 
+    layout: 'signup', 
+    loggedIn: req.session.user ? true : false 
+  });
 });
+
 
 router.post('/signup', authController.signup);
 
