@@ -10,3 +10,5 @@ router.get('/dashboard', ensureAuthenticated, dashboardController.getDashboard);
 router.post('/dashboard/blogs', ensureAuthenticated, dashboardController.createBlog);
 
 module.exports = router;
+
+

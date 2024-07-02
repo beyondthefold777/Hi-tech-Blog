@@ -12,7 +12,6 @@ router.get('/signup', (req, res) => {
   });
 });
 
-
 router.post('/signup', authController.signup);
 
 module.exports = router;

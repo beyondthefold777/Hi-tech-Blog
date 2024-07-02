@@ -9,6 +9,7 @@ const pool = require('./config/connection');
 const session = require('express-session');
 const { ensureAuthenticated } = require('./middleware/auth');
 require('dotenv').config();
+const morgan = require('morgan');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -35,6 +36,8 @@ app.use((req, res, next) => {
   res.locals.loggedIn = req.session.user ? true : false;
   next();
 });
+
+app.use(morgan('dev'));
 
 app.use('/', homeRoutes);
 app.use('/', loginRoutes);

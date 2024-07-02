@@ -1,7 +1,7 @@
 // controllers/authController.js
 const { User } = require('../models');
 
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const user = await User.create({ username, email, password });
@@ -10,4 +10,8 @@ exports.signup = async (req, res) => {
   } catch (error) {
     res.status(500).send('Error signing up');
   }
+};
+
+module.exports = {
+  signup
 };
