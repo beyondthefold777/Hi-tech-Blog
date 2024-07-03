@@ -1,33 +1,36 @@
-require('dotenv').config();
-const { Pool } = require('pg');
+const { Sequelize } = require('sequelize');
+const path = require('path');
 
-// Determine the environment and set the appropriate database configuration
 const env = process.env.NODE_ENV || 'development';
-const config = {
-  development: {
-    user: process.env.DEV_DB_USERNAME,
-    host: process.env.DEV_DB_HOST,
-    database: process.env.DEV_DB_DATABASE,
-    password: process.env.DEV_DB_PASSWORD,
-    port: 5432, // Default PostgreSQL port
-  },
-  test: {
-    user: process.env.TEST_DB_USERNAME,
-    host: process.env.TEST_DB_HOST,
-    database: process.env.TEST_DB_DATABASE,
-    password: process.env.TEST_DB_PASSWORD,
-    port: 5432, // Default PostgreSQL port
-  },
-  production: {
-    user: process.env.PROD_DB_USERNAME,
-    host: process.env.PROD_DB_HOST,
-    database: process.env.PROD_DB_DATABASE,
-    password: process.env.PROD_DB_PASSWORD,
-    port: 5432, // Default PostgreSQL port
-  },
-};
 
-// Create a new connection pool using the appropriate configuration
-const pool = new Pool(config[env]);
+let sequelize;
 
-module.exports = pool;
+if (env === 'production') {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
+  });
+} else {
+  const dbConfig = require(path.join(__dirname, 'config.json'))[env];
+  sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+    host: dbConfig.host,
+    dialect: dbConfig.dialect
+  });
+}
+
+// Test the connection
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+module.exports = sequelize;

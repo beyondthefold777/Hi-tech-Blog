@@ -1,29 +1,28 @@
-// signup.js
-const signupFormHandler = async (event) => {
-  event.preventDefault(); // Prevent the default form submission
+const newFormHandler = async (event) => {
+  event.preventDefault();
 
-  const response = await fetch('/signup', {
-    method: 'POST',
-    body: JSON.stringify({
-      username: document.getElementById('username_signup').value,
-      email: document.getElementById('email_signup').value,
-      password: document.getElementById('password_signup').value
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
+  const username = document.querySelector('#username').value.trim();
+  const email = document.querySelector('#email').value.trim();
+  const password = document.querySelector('#password').value.trim();
+
+  if (username && email && password) {
+    const response = await fetch(`/signup`, {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
     if (response.ok) {
       document.location.replace('/');
     } else {
-      throw new Error('Network response was not ok.');
-    }      
-}
-
+      alert('Failed to create user');
+    }
+  }
+};
 
 document.addEventListener('DOMContentLoaded', function() {
-const signupForm = document.querySelector('form');
-
-
-signupForm.addEventListener('submit', signupFormHandler);
-})
+  const signupForm = document.querySelector('form');
+  signupForm.addEventListener('submit', newFormHandler);
+});
