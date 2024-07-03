@@ -41,7 +41,12 @@ app.use(morgan('dev'));
 
 app.use('/', homeRoutes);
 app.use('/', loginRoutes);
-app.use('/', ensureAuthenticated, dashboardRoutes);
+// Apply ensureAuthenticated middleware only to dashboard routes
+app.use('/dashboard', ensureAuthenticated, dashboardRoutes);
+app.get('/js/signup.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'js', 'signup.js'));
+});
+
 
 pool.connect()
   .then(() => {

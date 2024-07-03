@@ -1,3 +1,4 @@
+//logincontroller
 const { User } = require('../models');
 
 exports.login = async (req, res) => {

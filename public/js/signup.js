@@ -2,7 +2,7 @@
 const signupFormHandler = async (event) => {
   event.preventDefault(); // Prevent the default form submission
 
-  const response = await fetch('/api/signup', {
+  const response = await fetch('/signup', {
     method: 'POST',
     body: JSON.stringify({
       username: document.getElementById('username_signup').value,
