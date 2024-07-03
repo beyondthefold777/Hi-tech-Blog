@@ -18,6 +18,7 @@ if (env === 'production') {
   });
 } else {
   const dbConfig = require(path.join(__dirname, 'config.json'))[env];
+  console.log('Database Configuration:', dbConfig); // Log the configuration
   sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
     host: dbConfig.host,
     dialect: dbConfig.dialect
