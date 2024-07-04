@@ -5,7 +5,7 @@ const helpers = require('./utils/helpers');
 const homeRoutes = require('./routes/homeRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
-const pool = require('./config/connection');
+const sequelize = require('./config/connection'); // Import the Sequelize instance
 const session = require('express-session');
 const { ensureAuthenticated } = require('./middleware/auth');
 require('dotenv').config();
@@ -44,8 +44,8 @@ app.use('/', loginRoutes);
 // Apply ensureAuthenticated middleware only to dashboard routes
 app.use('/dashboard', ensureAuthenticated, dashboardRoutes);
 
-
-pool.connect()
+// Authenticate the Sequelize instance
+sequelize.authenticate()
   .then(() => {
     console.log('Successfully connected to the database');
     app.listen(PORT, () => {

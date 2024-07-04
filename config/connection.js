@@ -1,5 +1,5 @@
+require('dotenv').config(); // Load environment variables from .env file
 const { Sequelize } = require('sequelize');
-const path = require('path');
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -17,12 +17,15 @@ if (env === 'production') {
     }
   });
 } else {
-  const dbConfig = require(path.join(__dirname, 'config.json'))[env];
-  console.log('Database Configuration:', dbConfig); // Log the configuration
-  sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect
-  });
+  sequelize = new Sequelize(
+    process.env.DB_DATABASE,
+    process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
+    {
+      host: 'localhost', // Assuming the database is hosted locally
+      dialect: 'postgres'
+    }
+  );
 }
 
 // Test the connection
