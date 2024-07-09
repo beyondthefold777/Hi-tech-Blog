@@ -1,0 +1,19 @@
+<form class="login_form grey-gradient p-4 rounded-lg" action="/login" method="POST">
+  <div class="mb-4">
+    <label for="username_login" class="block text-blue-500">Username</label>
+    <input id="username_login" name="username" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+  </div>
+  <div class="mb-4">
+    <label for="email_login" class="block text-blue-500">Email</label>
+    <input id="email_login" name="email" type="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+  </div>
+  <div class="mb-4">
+    <label for="password_login" class="block text-blue-500">Password</label>
+    <input id="password_login" name="password" type="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+  </div>
+  <button type="submit" class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Log In</button>
+</form>
+<p class="mt-4 text-blue-500">Don't have an account yet?
+  <a href="/signup" class="text-blue-700">Sign up</a>
+  instead.
+</p>
