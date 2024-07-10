@@ -8,9 +8,12 @@
 <section class="mb-6">
   <h2 class="text-2xl font-bold">Blogs</h2>
   {{#each blogs as |blog|}}
-  <a href="/api/edit/{{blog.id}}" class="block mb-2">
-    <h3 class="text-lg">{{blog.title}} - Posted on {{format_date blog.createdAt}}</h3>
-  </a>
+  <div class="mb-4">
+    <a href="/api/edit/{{blog.id}}" class="block mb-2">
+      <h3 class="text-lg">{{blog.title}} - Posted on {{format_date blog.createdAt}}</h3>
+    </a>
+    <button data-id="{{blog.id}}" class="delete-blog bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Delete</button>
+  </div>
   {{/each}}
 </section>
 {{/if}}
