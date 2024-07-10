@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -41,6 +42,11 @@ app.use((req, res, next) => {
 
 app.use(morgan('dev'));
 
+// Import logoutRoutes
+const logoutRoutes = require('./routes/logoutRoutes');
+
+// Use logoutRoutes
+app.use('/', logoutRoutes);
 app.use('/', homeRoutes);
 app.use('/', loginRoutes);
 app.use('/dashboard', dashboardRoutes);
