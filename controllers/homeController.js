@@ -9,7 +9,10 @@ const getHomePage = async (req, res) => {
 
     const loggedIn = req.session.user ? true : false;
 
-    res.render('layouts/main', { blogs, loggedIn });
+    // Convert blogs to plain objects to avoid prototype access issues
+    const plainBlogs = blogs.map(blog => blog.get({ plain: true }));
+
+    res.render('layouts/main', { blogs: plainBlogs, loggedIn });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
