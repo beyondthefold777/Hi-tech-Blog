@@ -7,7 +7,6 @@ const loginRoutes = require('./routes/loginRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const sequelize = require('./config/connection'); // Import the Sequelize instance
 const session = require('express-session');
-const { ensureAuthenticated } = require('./middleware/auth');
 require('dotenv').config();
 const morgan = require('morgan');
 
@@ -41,8 +40,7 @@ app.use(morgan('dev'));
 
 app.use('/', homeRoutes);
 app.use('/', loginRoutes);
-// Apply ensureAuthenticated middleware only to dashboard routes
-app.use('/dashboard', ensureAuthenticated, dashboardRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 // Authenticate the Sequelize instance
 sequelize.authenticate()

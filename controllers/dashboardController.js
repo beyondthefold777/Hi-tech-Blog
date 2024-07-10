@@ -1,11 +1,7 @@
-
 const { Blog } = require('../models');
 
 // Controller for displaying the dashboard
 exports.getDashboard = async (req, res) => {
-  if (!req.session.user) {
-    return res.redirect('/login');
-  }
   const blogs = await Blog.findAll({ where: { userId: req.session.user.id } });
   res.render('dashboard', { username: req.session.user.username, blogs });
 };
