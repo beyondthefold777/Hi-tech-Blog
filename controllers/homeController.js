@@ -1,11 +1,22 @@
-const { Blog, User } = require('../models');
+const { Blog, User, Comment } = require('../models');
 
 const getHomePage = async (req, res) => {
   try {
+    // Fetch blogs with associated user
     const blogs = await Blog.findAll({
-      include: [{ model: User, as: 'user' }],
+      include: [
+        { model: User, as: 'user' }
+      ],
       order: [['createdAt', 'DESC']]
     });
+
+    // Fetch comments with associated user for each blog
+    for (let blog of blogs) {
+      blog.Comments = await Comment.findAll({
+        where: { blogId: blog.id },
+        include: [{ model: User, as: 'user' }]
+      });
+    }
 
     const loggedIn = req.session.user ? true : false;
 

@@ -17,7 +17,7 @@
         <p class="text-gray-800">{{blog.content}}</p>
 
         <!-- Comments Section -->
-        <div class="mt-4">
+        <div class="mt-4" id="comments-section-{{blog.id}}">
           <h3 class="text-lg font-bold mb-2">Comments</h3>
           {{#each blog.Comments as |comment|}}
             <div class="bg-gray-100 p-4 rounded-lg mb-2">
@@ -25,16 +25,17 @@
               <p class="text-gray-600 text-sm">By {{comment.User.username}} on {{format_date comment.createdAt}}</p>
             </div>
           {{/each}}
-
-          <!-- Comment Form -->
-          <form action="/comments" method="POST" class="mt-4">
-            <input type="hidden" name="blogId" value="{{blog.id}}">
-            <textarea name="content" class="w-full p-2 mb-2 rounded text-gray-900" placeholder="Add a comment"></textarea>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Submit Comment</button>
-          </form>
         </div>
+
+        <!-- Comment Form -->
+        <form action="/comments" method="POST" class="mt-4" id="comment-form-{{blog.id}}">
+          <input type="hidden" name="blogId" value="{{blog.id}}">
+          <textarea name="content" class="w-full p-2 mb-2 rounded text-gray-900" placeholder="Add a comment"></textarea>
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Submit Comment</button>
+        </form>
       </article>
     {{/each}}
   </main>
+  <script src="/js/comments.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ const loginRoutes = require('./routes/loginRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const sequelize = require('./config/connection'); // Import the Sequelize instance
 const session = require('express-session');
+const commentRoutes = require('./routes/commentRoutes');
 require('dotenv').config();
 const morgan = require('morgan');
 
@@ -45,11 +46,12 @@ app.use(morgan('dev'));
 // Import logoutRoutes
 const logoutRoutes = require('./routes/logoutRoutes');
 
-// Use logoutRoutes
+
 app.use('/', logoutRoutes);
 app.use('/', homeRoutes);
 app.use('/', loginRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/comments', commentRoutes);
 
 // Authenticate the Sequelize instance
 sequelize.authenticate()
