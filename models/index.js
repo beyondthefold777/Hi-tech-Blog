@@ -6,9 +6,9 @@ const env = process.env.NODE_ENV || 'development';
 let sequelize;
 
 if (env === 'production') {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+  sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
     dialect: 'postgres',
-    protocol: 'postgres',
     dialectOptions: {
       ssl: {
         require: true,
@@ -18,7 +18,7 @@ if (env === 'production') {
   });
 } else {
   sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-    host: 'localhost', // Assuming the database is hosted locally
+    host: 'localhost', 
     dialect: 'postgres'
   });
 }
