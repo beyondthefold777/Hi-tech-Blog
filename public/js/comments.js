@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         commentElement.classList.add('bg-gray-100', 'p-4', 'rounded-lg', 'mb-2');
         commentElement.innerHTML = `
           <p class="text-gray-800">${comment.content}</p>
-          <p class="text-gray-600 text-sm">By ${comment.User.username} on ${format_date(comment.createdAt)}</p>
+          <p class="text-gray-600 text-sm">By ${comment.User ? comment.User.username : 'Anonymous'} on ${format_date(comment.createdAt)}</p>
         `;
         commentsSection.appendChild(commentElement);
         form.reset();

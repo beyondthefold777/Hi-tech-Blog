@@ -2,11 +2,15 @@ const { Blog, User, Comment } = require('../models');
 
 const getHomePage = async (req, res) => {
   try {
-    // Fetch blogs with associated user
+    // Fetch blogs with associated user and comments with associated user
     const blogs = await Blog.findAll({
       include: [
         { model: User, as: 'user' },
-        { model: Comment, as: 'Comments', include: [{ model: User, as: 'user' }] }
+        { 
+          model: Comment, 
+          as: 'Comments', 
+          include: [{ model: User, as: 'user' }] 
+        }
       ],
       order: [['createdAt', 'DESC']]
     });
@@ -26,3 +30,4 @@ const getHomePage = async (req, res) => {
 module.exports = {
   getHomePage
 };
+
