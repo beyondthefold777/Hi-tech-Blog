@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: your-app-name
+    env: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "node server.js"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_USERNAME
+        fromDatabase:
+          name: your-database-name
+          property: username
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: your-database-name
+          property: password
+      - key: DB_DATABASE
+        fromDatabase:
+          name: your-database-name
+          property: database
+    healthCheckPath: /
+    autoDeploy: true
+
+databases:
+  - name: your-database-name
+    databaseName: your-database
+    user: your-database-user
