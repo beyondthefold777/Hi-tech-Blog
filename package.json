@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "echo 'No build step required'"
+    "build": "echo 'No build step required'",
+    "migrate:prod": "npx sequelize-cli db:migrate"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
