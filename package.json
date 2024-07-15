@@ -4,12 +4,10 @@
   "description": "Your application description",
   "main": "server.js",
   "scripts": {
-  "start": "node server.js",
-  "build": "echo 'No build step required'",
-  "migrate:prod": "npx sequelize-cli db:migrate",
-  "postinstall": "npm run migrate:prod"
-}
-,
+    "start": "node server.js",
+    "build": "echo 'No build step required'",
+    "migrate:prod": "npx sequelize-cli db:migrate"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "connect-session-sequelize": "^7.1.7",

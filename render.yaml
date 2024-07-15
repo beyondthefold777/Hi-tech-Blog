@@ -21,8 +21,6 @@ services:
           property: database
     healthCheckPath: /
     autoDeploy: true
-    preDeploy:
-      - npm run migrate:prod
 
 databases:
   - name: your-database-name
