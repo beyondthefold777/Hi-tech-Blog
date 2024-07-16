@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables from .env file
+require('dotenv').config(); 
 const { Sequelize } = require('sequelize');
 
 const env = process.env.NODE_ENV || 'development';
