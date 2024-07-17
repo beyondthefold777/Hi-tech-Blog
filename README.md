@@ -45,7 +45,8 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 For any questions or inquiries, please contact anthonybell67.ab@gmail.com
 
-## Video Walkthrough
+## Deployed App Link
+https://hi-tech-blog.onrender.com/
 
 
 
